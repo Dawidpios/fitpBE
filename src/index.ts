@@ -1,14 +1,11 @@
 import express from 'express'
 
-// import user from './routes/user.ts'
-
-// import { PrismaClient } from "@prisma/client";
+import user from './routes/userRoute'
 
 const app = express();
 app.use(express.json());
 
-// const prisma = new PrismaClient()
-
+app.use(user)
 app.get("/", (req, res) => {
   res.send({message: "Udało się HEHEHEH m"});
 });
