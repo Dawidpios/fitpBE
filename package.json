@@ -1,0 +1,11 @@
+{
+  "name": "fitpbe",
+  "version": "1.0.0",
+  "description": "Fit panda BE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dawid Pioś",
+  "license": "ISC"
+}
