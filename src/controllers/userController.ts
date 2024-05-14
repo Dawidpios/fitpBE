@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
-import prisma from "../utils/prismaClient.js";
-import { hashPassword }  from "../lib/hashPassword.js";
+import prisma from "../utils/prismaClient";
+import { hashPassword }  from "../lib/hashPassword";
 
 export const addUser = async (req: Request, res: Response, next: NextFunction) => {
   const { name, password, email } = req.body;

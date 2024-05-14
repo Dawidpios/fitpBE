@@ -24,23 +24,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUser = exports.addUser = void 0;
-const prismaClient_js_1 = __importDefault(require("../utils/prismaClient.js"));
-const hashPassword_js_1 = require("../lib/hashPassword.js");
+const prismaClient_1 = __importDefault(require("../utils/prismaClient"));
+const hashPassword_1 = require("../lib/hashPassword");
 const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, password, email } = req.body;
-    const hashedPassword = yield (0, hashPassword_js_1.hashPassword)(password);
-    const userExist = yield prismaClient_js_1.default.user.findUnique({ where: { email: email } });
+    const hashedPassword = yield (0, hashPassword_1.hashPassword)(password);
+    const userExist = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
     if (userExist) {
         return res.status(409).json({ message: "User already exist" });
     }
-    yield prismaClient_js_1.default.user.create({ data: { name, password: hashedPassword, email } });
+    yield prismaClient_1.default.user.create({ data: { name, password: hashedPassword, email } });
     return res.status(200).json({ message: "User has been created" });
 });
 exports.addUser = addUser;
 const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, email } = req.body;
     if (id) {
-        const userExist = yield prismaClient_js_1.default.user.findUnique({ where: { id: id } });
+        const userExist = yield prismaClient_1.default.user.findUnique({ where: { id: id } });
         if (userExist) {
             const { password } = userExist, userWithoutPass = __rest(userExist, ["password"]);
             return res.status(200).send(Object.assign({}, userWithoutPass));
@@ -48,7 +48,7 @@ const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(404).send({ msg: "User not found" });
     }
     if (email) {
-        const userExist = yield prismaClient_js_1.default.user.findUnique({ where: { email: email } });
+        const userExist = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
         if (userExist) {
             const { password } = userExist, userWithoutPass = __rest(userExist, ["password"]);
             return res.status(200).send(Object.assign({}, userWithoutPass));
