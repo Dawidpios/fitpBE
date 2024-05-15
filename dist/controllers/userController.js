@@ -64,11 +64,11 @@ const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 exports.getUser = getUser;
 const authUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    const user = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
-    const authUser = yield (0, comparePassword_1.comparePassword)(password, user.password);
     if (!email && !password) {
         res.status(400).send({ msg: "You need to pass email and password" });
     }
+    const user = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
+    const authUser = yield (0, comparePassword_1.comparePassword)(password, user.password);
     if (authUser) {
         const { password } = user, userWithoutPass = __rest(user, ["password"]);
         res.status(200).send(Object.assign({}, userWithoutPass));
