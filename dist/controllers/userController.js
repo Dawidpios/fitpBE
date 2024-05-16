@@ -29,7 +29,7 @@ const hashPassword_1 = require("../lib/hashPassword");
 const comparePassword_1 = require("../lib/comparePassword");
 const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, password, email } = req.body;
-    if (!name && !password && !email) {
+    if (!name || !password || !email) {
         return res.status(400).send({ msg: "Missing arguments" });
     }
     const userExist = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
@@ -64,7 +64,7 @@ const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 exports.getUser = getUser;
 const authUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    if (!email && !password) {
+    if (!email || !password) {
         return res.status(400).send({ msg: "You need to pass email and password" });
     }
     const user = yield prismaClient_1.default.user.findUnique({ where: { email: email } });

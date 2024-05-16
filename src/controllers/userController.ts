@@ -6,7 +6,7 @@ import { comparePassword } from "../lib/comparePassword";
 export const addUser = async (req: Request, res: Response, next: NextFunction) => {
   const { name, password, email } = req.body;
   
-  if(!name && !password && !email) {
+  if(!name || !password || !email) {
     return res.status(400).send({msg: "Missing arguments"})
   }
 
@@ -50,7 +50,7 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
 export const authUser = async (req: Request, res: Response, next: NextFunction) => {
   const {email, password} = req.body
 
-  if(!email && !password) {
+  if(!email || !password) {
     return res.status(400).send({msg: "You need to pass email and password"})
   }
 
