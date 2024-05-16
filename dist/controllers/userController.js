@@ -65,16 +65,16 @@ exports.getUser = getUser;
 const authUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     if (!email && !password) {
-        res.status(400).send({ msg: "You need to pass email and password" });
+        return res.status(400).send({ msg: "You need to pass email and password" });
     }
     const user = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
     const authUser = yield (0, comparePassword_1.comparePassword)(password, user.password);
     if (authUser) {
         const { password } = user, userWithoutPass = __rest(user, ["password"]);
-        res.status(200).send(Object.assign({}, userWithoutPass));
+        return res.status(200).send(Object.assign({}, userWithoutPass));
     }
     else {
-        res.status(401).send({ msg: "Authentication failed" });
+        return res.status(401).send({ msg: "Authentication failed" });
     }
 });
 exports.authUser = authUser;

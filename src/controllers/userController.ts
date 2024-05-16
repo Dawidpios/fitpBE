@@ -51,7 +51,7 @@ export const authUser = async (req: Request, res: Response, next: NextFunction) 
   const {email, password} = req.body
 
   if(!email && !password) {
-    res.status(400).send({msg: "You need to pass email and password"})
+    return res.status(400).send({msg: "You need to pass email and password"})
   }
 
   const user = await prisma.user.findUnique({where: {email : email}});
@@ -59,8 +59,8 @@ export const authUser = async (req: Request, res: Response, next: NextFunction) 
 
   if(authUser) {
     const { password, ...userWithoutPass } = user;
-    res.status(200).send({...userWithoutPass})
+    return res.status(200).send({...userWithoutPass})
   } else {
-    res.status(401).send({msg: "Authentication failed"})
+    return res.status(401).send({msg: "Authentication failed"})
   }
 }
