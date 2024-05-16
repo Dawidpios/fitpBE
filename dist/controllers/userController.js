@@ -30,7 +30,7 @@ const comparePassword_1 = require("../lib/comparePassword");
 const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, password, email } = req.body;
     if (!name || !password || !email) {
-        return res.status(400).send({ msg: "Missing arguments" });
+        return res.status(400).send({ msg: `Missing arguments name: ${name}, pass: ${password} or email: ${email}` });
     }
     const userExist = yield prismaClient_1.default.user.findUnique({ where: { email: email } });
     if (userExist) {

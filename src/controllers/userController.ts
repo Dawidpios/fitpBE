@@ -7,7 +7,7 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
   const { name, password, email } = req.body;
   
   if(!name || !password || !email) {
-    return res.status(400).send({msg: "Missing arguments"})
+    return res.status(400).send({msg: `Missing arguments name: ${name}, pass: ${password} or email: ${email}`})
   }
 
   const userExist = await prisma.user.findUnique({ where: { email: email } });
