@@ -22,7 +22,8 @@ export const addUser = async (req: Request, res: Response, next: NextFunction) =
 };
 
 export const getUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { id, email } = req.body;
+  const id = req.query.id as string | undefined;
+  const email = req.query.email as string | undefined;
 
   if(id) {
     const userExist = await prisma.user.findUnique({where: {id : id}});

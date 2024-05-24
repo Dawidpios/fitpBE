@@ -42,7 +42,8 @@ const addUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.addUser = addUser;
 const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, email } = req.body;
+    const id = req.query.id;
+    const email = req.query.email;
     if (id) {
         const userExist = yield prismaClient_1.default.user.findUnique({ where: { id: id } });
         if (userExist) {
