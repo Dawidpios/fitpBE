@@ -21,18 +21,20 @@ export const userStats = async (req: Request, res: Response, next: NextFunction)
   // Aktualne stats
   const currentStats = typeof user.stats === 'object' && user.stats !== null ? user.stats : {};
 
+  Object.keys(formData).forEach(key => {
+    if (formData[key] === '') {
+      delete formData[key];
+    } else {
+      formData[key] = {value: formData[key], updatedAt: new Date().toLocaleString()}
+    }
+  });
+
   // Tworzenie nowego obiektu stats z aktualnymi wartościami
   const newStats = {
     ...currentStats,
-    ...formData,
+    ...formData
   };
 
-  // Usuwanie kluczy, które są undefined
-  Object.keys(newStats).forEach(key => {
-    if (newStats[key] === undefined) {
-      delete newStats[key];
-    }
-  });
 
   // Aktualizacja użytkownika
   await prisma.user.update({
