@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express"
 import prisma from "../utils/prismaClient";
-import { Prisma } from "@prisma/client";
 
 export const userStats = async (req: Request, res: Response, next: NextFunction) => {
   const {formData, id} = req.body

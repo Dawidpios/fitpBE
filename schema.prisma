@@ -25,6 +25,7 @@ model User {
   email     String?  @unique
   password  String?  @unique
   stats     Json?
+  image     String?
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
