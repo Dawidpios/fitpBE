@@ -4,9 +4,9 @@ import { comparePassword } from "../lib/comparePassword";
 import { hashPassword } from "../lib/hashPassword";
 
 export const userPasswordHandler = async (req: Request, res: Response, next: NextFunction) => {
-  const { password, newPassword, confirmedPassword, id } = req.body;
+  const { password, newPassword, confirmPassword, id } = req.body;
 
-  if (!password || !newPassword || !confirmedPassword || !id) {
+  if (!password || !newPassword || !confirmPassword || !id) {
     return res.status(400)
       .send({
         message:
@@ -14,7 +14,7 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
       });
   }
 
-  if (newPassword !== confirmedPassword) {
+  if (newPassword !== confirmPassword) {
     return res.status(401).send({ message: "New passwords are not equal!" });
   }
 

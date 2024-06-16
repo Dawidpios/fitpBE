@@ -17,14 +17,14 @@ const prismaClient_1 = __importDefault(require("../utils/prismaClient"));
 const comparePassword_1 = require("../lib/comparePassword");
 const hashPassword_1 = require("../lib/hashPassword");
 const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { password, newPassword, confirmedPassword, id } = req.body;
-    if (!password || !newPassword || !confirmedPassword || !id) {
+    const { password, newPassword, confirmPassword, id } = req.body;
+    if (!password || !newPassword || !confirmPassword || !id) {
         return res.status(400)
             .send({
             message: "Missing data, You should send user id, password, new password and confirmed password",
         });
     }
-    if (newPassword !== confirmedPassword) {
+    if (newPassword !== confirmPassword) {
         return res.status(401).send({ message: "New passwords are not equal!" });
     }
     if (newPassword.trim().length < 8) {
