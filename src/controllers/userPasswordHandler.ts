@@ -44,7 +44,7 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
   if(!userUpdated) {
     return res.status(400).send({ message: "User updated failed!" });
   }
-   
-  return res.send({ message: "User password updated!" }).status(200);
+  console.log(userUpdated)
+  return res.json({ message: "User password updated!" }).status(200);
 };
 

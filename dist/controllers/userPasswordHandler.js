@@ -46,7 +46,8 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (!userUpdated) {
         return res.status(400).send({ message: "User updated failed!" });
     }
-    return res.send({ message: "User password updated!" }).status(200);
+    console.log(userUpdated);
+    return res.json({ message: "User password updated!" }).status(200);
 });
 exports.userPasswordHandler = userPasswordHandler;
 //# sourceMappingURL=userPasswordHandler.js.map
