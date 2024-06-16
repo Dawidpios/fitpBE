@@ -22,20 +22,19 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
     return res.status(401).send({message: "New password must be at least 8 characters long"})
   }
   
-  const userExist = await prisma.user.findUnique({ where: { id: id } });
+  const userExist = await prisma.user.findFirst({ where: { id: id } });
 
   if (!userExist) {
     return res.status(404).send({ message: "User not exists" });
   }
 
-  const passwordIsEqual = await comparePassword(password, userExist.password);
+  // const passwordIsEqual = await comparePassword(password, userExist.password);
 
-  if (!passwordIsEqual) {
-    return res.status(401).send({ message: "Incorrect password" });
-  }
+  // if (!passwordIsEqual) {
+  //   return res.status(401).send({ message: "Incorrect password" });
+  // }
 
   const hashedPassword = await hashPassword(newPassword);
-
   const userUpdated = await prisma.user.update({
     where: { id: id },
     data: { password: hashedPassword },
@@ -44,7 +43,7 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
   if(!userUpdated) {
     return res.status(400).send({ message: "User updated failed!" });
   }
-  console.log(userUpdated)
-  return res.json({ message: "User password updated!" }).status(200);
+
+  return res.send({ message: "User password updated!" }).status(200);
 };
 

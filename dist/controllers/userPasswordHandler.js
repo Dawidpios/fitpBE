@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userPasswordHandler = void 0;
 const prismaClient_1 = __importDefault(require("../utils/prismaClient"));
-const comparePassword_1 = require("../lib/comparePassword");
 const hashPassword_1 = require("../lib/hashPassword");
 const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { password, newPassword, confirmPassword, id } = req.body;
@@ -30,14 +29,14 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (newPassword.trim().length < 8) {
         return res.status(401).send({ message: "New password must be at least 8 characters long" });
     }
-    const userExist = yield prismaClient_1.default.user.findUnique({ where: { id: id } });
+    const userExist = yield prismaClient_1.default.user.findFirst({ where: { id: id } });
     if (!userExist) {
         return res.status(404).send({ message: "User not exists" });
     }
-    const passwordIsEqual = yield (0, comparePassword_1.comparePassword)(password, userExist.password);
-    if (!passwordIsEqual) {
-        return res.status(401).send({ message: "Incorrect password" });
-    }
+    // const passwordIsEqual = await comparePassword(password, userExist.password);
+    // if (!passwordIsEqual) {
+    //   return res.status(401).send({ message: "Incorrect password" });
+    // }
     const hashedPassword = yield (0, hashPassword_1.hashPassword)(newPassword);
     const userUpdated = yield prismaClient_1.default.user.update({
         where: { id: id },
@@ -46,8 +45,7 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (!userUpdated) {
         return res.status(400).send({ message: "User updated failed!" });
     }
-    console.log(userUpdated);
-    return res.json({ message: "User password updated!" }).status(200);
+    return res.send({ message: "User password updated!" }).status(200);
 });
 exports.userPasswordHandler = userPasswordHandler;
 //# sourceMappingURL=userPasswordHandler.js.map
