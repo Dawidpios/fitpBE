@@ -39,10 +39,13 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
         return res.status(401).send({ message: "Incorrect password" });
     }
     const hashedPassword = yield (0, hashPassword_1.hashPassword)(newPassword);
-    yield prismaClient_1.default.user.update({
+    const userUpdated = yield prismaClient_1.default.user.update({
         where: { id: id },
         data: { password: hashedPassword },
     });
+    if (!userUpdated) {
+        return res.status(400).send({ message: "User updated failed!" });
+    }
     return res.send({ message: "User password updated!" }).status(200);
 });
 exports.userPasswordHandler = userPasswordHandler;
