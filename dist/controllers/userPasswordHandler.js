@@ -43,7 +43,7 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
         where: { id: id },
         data: { password: hashedPassword },
     });
-    return res.status(200).send({ message: "User password updated!" });
+    return res.send({ message: "User password updated!" }).status(200);
 });
 exports.userPasswordHandler = userPasswordHandler;
 //# sourceMappingURL=userPasswordHandler.js.map

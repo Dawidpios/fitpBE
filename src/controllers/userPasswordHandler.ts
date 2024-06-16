@@ -35,12 +35,12 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
   }
 
   const hashedPassword = await hashPassword(newPassword);
-
+  
   await prisma.user.update({
     where: { id: id },
     data: { password: hashedPassword },
   });
 
-  return res.status(200).send({ message: "User password updated!" });
+  return res.send({ message: "User password updated!" }).status(200);
 };
 
