@@ -11,6 +11,6 @@ router
   .post("/addUser", addUser)
   .put("/updateStats", userStats)
   .put("/setUserAvatar", userAvatar)
-  .put("/userPasswordHandler", userPasswordHandler);
+  .put("/changePassword", userPasswordHandler);
 
 export default router;

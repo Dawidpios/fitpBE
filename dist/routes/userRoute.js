@@ -15,6 +15,6 @@ router
     .post("/addUser", userController_1.addUser)
     .put("/updateStats", userStats_1.userStats)
     .put("/setUserAvatar", userAvatar_1.userAvatar)
-    .put("/userPasswordHandler", userPasswordHandler_1.userPasswordHandler);
+    .put("/changePassword", userPasswordHandler_1.userPasswordHandler);
 exports.default = router;
 //# sourceMappingURL=userRoute.js.map
