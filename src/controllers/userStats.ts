@@ -17,7 +17,6 @@ export const userStats = async (req: Request, res: Response, next: NextFunction)
     throw new Error('User not found');
   }
 
-  // Aktualne stats
   const currentStats = typeof user.stats === 'object' && user.stats !== null ? user.stats : {};
 
   Object.keys(formData).forEach(key => {
@@ -28,14 +27,11 @@ export const userStats = async (req: Request, res: Response, next: NextFunction)
     }
   });
 
-  // Tworzenie nowego obiektu stats z aktualnymi wartościami
   const newStats = {
     ...currentStats,
     ...formData
   };
 
-
-  // Aktualizacja użytkownika
   await prisma.user.update({
     where: { id: id },
     data: {
@@ -45,6 +41,5 @@ export const userStats = async (req: Request, res: Response, next: NextFunction)
     },
   });
 
-  
   return res.status(200).send(user)
 }

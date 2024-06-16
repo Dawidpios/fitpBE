@@ -26,7 +26,6 @@ const userStats = (req, res, next) => __awaiter(void 0, void 0, void 0, function
     if (!user) {
         throw new Error('User not found');
     }
-    // Aktualne stats
     const currentStats = typeof user.stats === 'object' && user.stats !== null ? user.stats : {};
     Object.keys(formData).forEach(key => {
         if (formData[key] === '') {
@@ -36,9 +35,7 @@ const userStats = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             formData[key] = { value: formData[key], updatedAt: new Date().toLocaleString() };
         }
     });
-    // Tworzenie nowego obiektu stats z aktualnymi wartościami
     const newStats = Object.assign(Object.assign({}, currentStats), formData);
-    // Aktualizacja użytkownika
     yield prismaClient_1.default.user.update({
         where: { id: id },
         data: {
