@@ -27,13 +27,7 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
   if (!userExist) {
     return res.status(404).send({ message: "User not exists" });
   }
-
-  // const passwordIsEqual = await comparePassword(password, userExist.password);
-
-  // if (!passwordIsEqual) {
-  //   return res.status(401).send({ message: "Incorrect password" });
-  // }
-
+  
   const hashedPassword = await hashPassword(newPassword);
   const userUpdated = await prisma.user.update({
     where: { id: id },

@@ -8,6 +8,7 @@ const userController_1 = require("../controllers/userController");
 const userStats_1 = require("../controllers/userStats");
 const userAvatar_1 = require("../controllers/userAvatar");
 const userPasswordHandler_1 = require("../controllers/userPasswordHandler");
+const userCheckPassword_1 = require("../controllers/userCheckPassword");
 const router = express_1.default.Router();
 router
     .get("/getUser", userController_1.getUser)
@@ -15,6 +16,6 @@ router
     .post("/addUser", userController_1.addUser)
     .put("/updateStats", userStats_1.userStats)
     .put("/setUserAvatar", userAvatar_1.userAvatar)
-    .put("/changePassword", userPasswordHandler_1.userPasswordHandler);
+    .put("/changePassword", userCheckPassword_1.userCheckPassword, userPasswordHandler_1.userPasswordHandler);
 exports.default = router;
 //# sourceMappingURL=userRoute.js.map

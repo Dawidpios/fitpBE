@@ -3,6 +3,7 @@ import { addUser, getUser, authUser } from "../controllers/userController";
 import { userStats } from "../controllers/userStats";
 import { userAvatar } from "../controllers/userAvatar";
 import { userPasswordHandler } from '../controllers/userPasswordHandler'
+import { userCheckPassword } from "../controllers/userCheckPassword";
 const router = express.Router();
 
 router
@@ -11,6 +12,6 @@ router
   .post("/addUser", addUser)
   .put("/updateStats", userStats)
   .put("/setUserAvatar", userAvatar)
-  .put("/changePassword", userPasswordHandler);
+  .put("/changePassword", userCheckPassword, userPasswordHandler);
 
 export default router;

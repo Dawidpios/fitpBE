@@ -33,10 +33,6 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (!userExist) {
         return res.status(404).send({ message: "User not exists" });
     }
-    // const passwordIsEqual = await comparePassword(password, userExist.password);
-    // if (!passwordIsEqual) {
-    //   return res.status(401).send({ message: "Incorrect password" });
-    // }
     const hashedPassword = yield (0, hashPassword_1.hashPassword)(newPassword);
     const userUpdated = yield prismaClient_1.default.user.update({
         where: { id: id },
