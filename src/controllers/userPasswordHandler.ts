@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import prisma from "../utils/prismaClient";
-import { comparePassword } from "../lib/comparePassword";
 import { hashPassword } from "../lib/hashPassword";
 
-export const userPasswordHandler = async (req: Request, res: Response, next: NextFunction) => {
+interface UserRequest extends Request {
+  user?: any;
+}
+
+export const userPasswordHandler = async (req: UserRequest, res: Response, next: NextFunction) => {
   const { password, newPassword, confirmPassword, id } = req.body;
+  const { user } = req
 
   if (!password || !newPassword || !confirmPassword || !id) {
     return res.status(400)
@@ -22,12 +26,10 @@ export const userPasswordHandler = async (req: Request, res: Response, next: Nex
     return res.status(401).send({message: "New password must be at least 8 characters long"})
   }
   
-  const userExist = await prisma.user.findFirst({ where: { id: id } });
-
-  if (!userExist) {
+  if (!user) {
     return res.status(404).send({ message: "User not exists" });
   }
-  
+
   const hashedPassword = await hashPassword(newPassword);
   const userUpdated = await prisma.user.update({
     where: { id: id },

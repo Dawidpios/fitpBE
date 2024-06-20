@@ -18,21 +18,17 @@ const comparePassword_1 = require("../lib/comparePassword");
 const userCheckPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password, id } = req.body;
-        // Asynchronicznie wyszukaj użytkownika w bazie danych
         const userPromise = prismaClient_1.default.user.findUnique({ where: { id: id } });
         const userExist = yield userPromise;
-        // Jeśli użytkownik nie istnieje, zwróć błąd
         if (!userExist) {
             return res.status(404).send({ message: "User not found" });
         }
-        // Asynchronicznie porównaj hasła
         const passwordIsEqualPromise = (0, comparePassword_1.comparePassword)(password, userExist.password);
         const passwordIsEqual = yield passwordIsEqualPromise;
-        // Jeśli hasła się nie zgadzają, zwróć błąd
         if (!passwordIsEqual) {
             return res.status(401).send({ message: "Incorrect password" });
         }
-        // Jeśli wszystko jest poprawne, przejdź do następnego middleware
+        req.user = userExist;
         next();
     }
     catch (error) {
