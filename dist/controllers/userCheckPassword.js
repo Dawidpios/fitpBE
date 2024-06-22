@@ -28,8 +28,7 @@ const userCheckPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         if (!passwordIsEqual) {
             return res.status(401).send({ message: "Incorrect password" });
         }
-        req.user = userExist;
-        next();
+        return res.status(200).send({ message: "Password is correct!" });
     }
     catch (error) {
         console.error("Error in userCheckPassword:", error);

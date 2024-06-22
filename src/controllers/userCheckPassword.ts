@@ -23,9 +23,9 @@ export const userCheckPassword = async (req: UserRequest, res: Response, next: N
     if (!passwordIsEqual) {
       return res.status(401).send({ message: "Incorrect password" });
     }
-    req.user = userExist
-    next();
 
+    return res.status(200).send({ message: "Password is correct!" })
+  
   } catch (error) {
     console.error("Error in userCheckPassword:", error);
     return res.status(500).send({ message: "Internal Server Error" });
