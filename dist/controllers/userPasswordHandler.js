@@ -17,7 +17,6 @@ const prismaClient_1 = __importDefault(require("../utils/prismaClient"));
 const hashPassword_1 = require("../lib/hashPassword");
 const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { password, newPassword, confirmPassword, id } = req.body;
-    const { user } = req;
     if (!password || !newPassword || !confirmPassword || !id) {
         return res.status(400)
             .send({
@@ -30,6 +29,7 @@ const userPasswordHandler = (req, res, next) => __awaiter(void 0, void 0, void 0
     if (newPassword.trim().length < 8) {
         return res.status(401).send({ message: "New password must be at least 8 characters long" });
     }
+    const user = yield prismaClient_1.default.user.findUnique({ where: { id: id } });
     if (!user) {
         return res.status(404).send({ message: "User not exists" });
     }

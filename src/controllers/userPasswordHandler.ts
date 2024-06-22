@@ -8,7 +8,6 @@ interface UserRequest extends Request {
 
 export const userPasswordHandler = async (req: UserRequest, res: Response, next: NextFunction) => {
   const { password, newPassword, confirmPassword, id } = req.body;
-  const { user } = req
 
   if (!password || !newPassword || !confirmPassword || !id) {
     return res.status(400)
@@ -25,7 +24,9 @@ export const userPasswordHandler = async (req: UserRequest, res: Response, next:
   if(newPassword.trim().length < 8) {
     return res.status(401).send({message: "New password must be at least 8 characters long"})
   }
-  
+
+  const user = await prisma.user.findUnique({ where: { id: id } });
+
   if (!user) {
     return res.status(404).send({ message: "User not exists" });
   }
