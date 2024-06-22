@@ -10,8 +10,9 @@ router
   .get("/getUser", getUser)
   .post("/authUser", authUser)
   .post("/addUser", addUser)
+  .post("/checkPassword", userCheckPassword)
   .put("/updateStats", userStats)
   .put("/setUserAvatar", userAvatar)
-  .put("/changePassword", userCheckPassword, userPasswordHandler);
+  .put("/changePassword", userPasswordHandler);
 
 export default router;

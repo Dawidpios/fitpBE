@@ -14,8 +14,9 @@ router
     .get("/getUser", userController_1.getUser)
     .post("/authUser", userController_1.authUser)
     .post("/addUser", userController_1.addUser)
+    .post("/checkPassword", userCheckPassword_1.userCheckPassword)
     .put("/updateStats", userStats_1.userStats)
     .put("/setUserAvatar", userAvatar_1.userAvatar)
-    .put("/changePassword", userCheckPassword_1.userCheckPassword, userPasswordHandler_1.userPasswordHandler);
+    .put("/changePassword", userPasswordHandler_1.userPasswordHandler);
 exports.default = router;
 //# sourceMappingURL=userRoute.js.map
