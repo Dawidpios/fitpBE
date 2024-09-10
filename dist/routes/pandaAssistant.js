@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dietAssistant_1 = require("../controllers/dietAssistant");
 const router = express_1.default.Router();
-router.post('/dietAssistent', dietAssistant_1.dietAssistant);
+router.post('/dietAssistant', dietAssistant_1.dietAssistant);
 exports.default = router;
 //# sourceMappingURL=pandaAssistant.js.map

@@ -3,6 +3,6 @@ import { dietAssistant } from '../controllers/dietAssistant'
 const router = express.Router();
 
 
-router.post('/dietAssistent', dietAssistant)
+router.post('/dietAssistant', dietAssistant)
 
 export default router;
